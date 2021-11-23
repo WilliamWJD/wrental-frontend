@@ -13,7 +13,7 @@ export const Container = styled.div`
 const appearFromLeft = keyframes`
   from{
     opacity:0;
-    transform: translateX(50px);
+    transform: translateX(-50px);
   }
   to{
     opacity:1;
@@ -30,14 +30,9 @@ export const Content = styled.div`
     flex-direction: row;
     justify-content: space-between;
 
-    img{
-        width:543px;
-        height:490px;
-    }
-
     >div{
         width: 100%;
-        max-width: 409px;
+        max-width: 440px;
         display:flex;
         flex-direction: column;
         background-color:#fff;
@@ -84,25 +79,4 @@ export const Content = styled.div`
             align-self: center;
         }
     }
-
-    
-
-    @media(max-width: 1044px){
-        align-items: center;
-
-        img{
-            width:443px;
-            height:390px;
-            margin-right:50px;
-        }
-    }
-
-    @media(max-width: 904px){
-        flex-direction: column;
-
-        img{
-            display:none;
-        }
-    }
 `;
-
