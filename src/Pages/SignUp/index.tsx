@@ -4,10 +4,20 @@ import { Link } from 'react-router-dom';
 import backgroundLogin from '../../images/background-login.png';
 import Input from '../../components/Input';
 import { Container, Content } from './styles';
+import { api } from '../../services/api';
+import { useNavigate } from "react-router-dom";
 
 export function SignUp() {
-    function handleSubmit(data:any){
-        console.log(data)
+    const navigation = useNavigate();
+
+    async function handleSubmit(data: any) {
+        try{
+            await api.post('/users', data)
+            alert('Usuário criado com sucesso')
+            navigation('/')
+        }catch (err: any) {
+            alert(err.message)
+        }
     }
 
     return (
@@ -23,6 +33,11 @@ export function SignUp() {
                         />
                         <Input
                             type="text"
+                            placeholder="Login"
+                            name="username"
+                        />
+                        <Input
+                            type="email"
                             placeholder="Seu e-mail favorito"
                             name="email"
                         />
