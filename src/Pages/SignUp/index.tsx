@@ -1,5 +1,6 @@
 import { Form } from '@unform/web';
 import { Link } from 'react-router-dom';
+import * as Yup from 'yup';
 
 import backgroundLogin from '../../images/background-login.png';
 import Input from '../../components/Input';
@@ -11,11 +12,23 @@ export function SignUp() {
     const navigation = useNavigate();
 
     async function handleSubmit(data: any) {
-        try{
+        try {
+            const schema = Yup.object().shape({
+                name: Yup.string().required(),
+                username: Yup.string().required(),
+                email: Yup.string().email().required(),
+                password: Yup.string().min(6).required()
+            })
+
+            if (!(await schema.validate(data))) {
+                alert('Preecha os campos corretamente')
+                return;
+            }
+
             await api.post('/users', data)
             alert('Usuário criado com sucesso')
             navigation('/')
-        }catch (err: any) {
+        } catch (err: any) {
             alert(err.message)
         }
     }
