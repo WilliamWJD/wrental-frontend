@@ -1,5 +1,6 @@
 import { Form } from '@unform/web';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
 import backgroundLogin from '../../images/background-login.png';
@@ -26,10 +27,13 @@ export function SignUp() {
             }
 
             await api.post('/users', data)
-            alert('Usuário criado com sucesso')
+            
+            toast.success("Usuário cadastrado com sucesso")
+
             navigation('/')
         } catch (err: any) {
-            alert(err.message)
+            toast.error("Erro ao cadastrar usuário")
+            console.log({ error: err.message })
         }
     }
 
