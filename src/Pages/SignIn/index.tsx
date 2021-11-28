@@ -12,7 +12,7 @@ interface FormData{
     password:string;
 }
 
-export function Login(){
+export function SignIn(){
     async function handleSubmit(data: FormData){
         const response = await api.post('/users/authenticated');
         console.log(response.data);

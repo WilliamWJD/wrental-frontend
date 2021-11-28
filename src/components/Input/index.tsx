@@ -42,9 +42,9 @@ export default function Input({ name, label, ...rest }: InputProps) {
           defaultValue={defaultValue}
           {...rest}
         />
+        {error && <span>{error}</span>}
       </Container>
 
-      {error && <span>{error}</span>}
     </>
   )
 }

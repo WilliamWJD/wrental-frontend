@@ -1,12 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
 
-import { Login } from '../Pages/Login';
+import { SignIn } from '../Pages/SignIn';
 import { SignUp } from '../Pages/SignUp';
 
 export function AppRoutes() {
     return (
         <Routes>
-            <Route path="/" element={<Login/>}/>
+            <Route path="/" element={<SignIn/>}/>
             <Route path="/signup" element={<SignUp/>}/>
         </Routes>
     )
