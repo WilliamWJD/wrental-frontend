@@ -16,7 +16,7 @@ export function SignUp() {
     const navigation = useNavigate();
     const formRef = useRef<FormHandles>(null);
 
-    const handleSubmit = useCallback ( async (data: object) => {
+    const handleSubmit = useCallback(async (data: object) => {
         try {
             formRef.current?.setErrors({})
 
@@ -24,24 +24,26 @@ export function SignUp() {
                 name: Yup.string().required('Nome obrigatório'),
                 username: Yup.string().required('Login obrigatório'),
                 email: Yup.string().email('Digite um e-mail válido').required('E-mail obrigatório'),
-                password: Yup.string().min(6,'Senha obrigatória')
+                password: Yup.string().min(6, 'Senha obrigatória')
             })
 
             //abortEarly retorna todos os erros que ele encontrar, por padrão ele é true fazendo com que ele retorne apenas o primeiro erro
-            await schema.validate(data,{
-                abortEarly:false
+            await schema.validate(data, {
+                abortEarly: false
             })
 
             await api.post('/users', data)
-            
+
             toast.success("Usuário cadastrado com sucesso")
 
             navigation('/')
         } catch (err) {
-            const errors = getValidationErrors(err as Yup.ValidationError)
-            formRef.current?.setErrors(errors);
+            if (err instanceof Yup.ValidationError) {
+                const errors = getValidationErrors(err as Yup.ValidationError)
+                formRef.current?.setErrors(errors);
+            }
             toast.error("Erro ao cadastrar usuário")
-            console.log({err})
+            console.log({ err })
         }
     }, [])
 
