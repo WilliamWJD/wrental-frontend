@@ -9,11 +9,11 @@ import backgroundLogin from '../../images/background-login.png';
 import Input from '../../components/Input';
 import { Container, Content } from './styles';
 import { api } from '../../services/api';
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import getValidationErrors from '../../utils/getValidationErrors';
 
 export function SignUp() {
-    const navigation = useNavigate();
+    const history = useHistory();
     const formRef = useRef<FormHandles>(null);
 
     const handleSubmit = useCallback(async (data: object) => {
@@ -36,7 +36,7 @@ export function SignUp() {
 
             toast.success("Usuário cadastrado com sucesso")
 
-            navigation('/')
+            history.push('/')
         } catch (err) {
             if (err instanceof Yup.ValidationError) {
                 const errors = getValidationErrors(err as Yup.ValidationError)
