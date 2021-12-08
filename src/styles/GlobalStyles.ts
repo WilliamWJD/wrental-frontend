@@ -7,7 +7,7 @@ export default createGlobalStyle`
         box-sizing: border-box;
     }
 
-    button, input, textarea, select, body{
+    button, input, textarea, select, body, span, strong{
         font: 400 1rem "Roboto", sans-serif;
     }
 
