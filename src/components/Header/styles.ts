@@ -3,6 +3,7 @@ import styled  from "styled-components";
 export const Container = styled.header`
     grid-area: h;
     background-color:#fff;
+    border-bottom:  1px solid #F3F3F3;
 `;
 
 export const Content = styled.div`
