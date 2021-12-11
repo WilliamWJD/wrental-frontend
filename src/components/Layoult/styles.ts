@@ -1,10 +1,6 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-interface ContainerProps{
-    isActive: boolean
-}
-
-export const Container = styled.div<ContainerProps>`
+export const Container = styled.div`
     display: grid;
     grid-template-areas: 'h h'
                          'n m';
@@ -14,7 +10,7 @@ export const Container = styled.div<ContainerProps>`
 
     nav{
         grid-area: n;
-        background: #fff;
+        background: #FFFFFF;
         border-right:1px solid #F3F3F3;
 
         display: flex;
@@ -37,16 +33,7 @@ export const Container = styled.div<ContainerProps>`
                 >svg{
                     margin-right: 10px;
                 }
-  
-                :first-child{
-                    color:#fff;
-                    background: #6C63FF;
-                }
-        
-            }
-
-            
-            
+            } 
         }
     }
 

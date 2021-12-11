@@ -33,9 +33,9 @@ export default function Input({ name, label, ...rest }: InputProps) {
 
   return (
     <>
-      {label && <label htmlFor={fieldName}>{label}</label>}
 
       <Container>
+        {label && <label htmlFor={fieldName}>{label}</label>}
         <input
           id={fieldName}
           ref={inputRef}

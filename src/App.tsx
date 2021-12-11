@@ -1,4 +1,4 @@
-import { AppRoutes } from './routes';
+import { AppRoutes } from './routes/app.routes';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 

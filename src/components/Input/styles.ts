@@ -4,6 +4,7 @@ export const Container = styled.div`
     margin-bottom:10px;
     display: flex;
     flex-direction:column;
+    width:100%;
 
     > span{
         margin-top:5px;

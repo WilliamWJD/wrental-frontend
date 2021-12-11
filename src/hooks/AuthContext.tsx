@@ -1,52 +1,52 @@
 import { createContext, useCallback, useContext, useState } from 'react';
 import { api } from '../services/api';
 
-interface User{
-    name:string;
+interface User {
+    name: string;
 }
 
-interface AuthState{
-    token:string;
+interface AuthState {
+    token: string;
     user: User
 }
 
 interface SignInCredentials {
     username: string;
     password: string;
-  }
+}
 
-interface AuthContextData{
+interface AuthContextData {
     user: User,
-    SignIn(credentials: SignInCredentials):Promise<void>
+    SignIn(credentials: SignInCredentials): Promise<void>
+    SignOut():void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-function AuthProvider({ children }: any){
-    const [data, setData] = useState<AuthState>(()=>{
+function AuthProvider({ children }: any) {
+    const [data, setData] = useState<AuthState>(() => {
         const token = localStorage.getItem('@WRental:token')
         const user = localStorage.getItem('@WRental:user')
 
-        if(token && user){
+        if (token && user) {
             api.defaults.headers.common['Authorization'] = `Bearer ${token}`
-            return{
+            return {
                 token,
-                 user:JSON.parse(user)
+                user: JSON.parse(user)
             }
         }
 
         return {} as AuthState
-
     })
-    
 
-    const SignIn = useCallback( async ({ username, password })=>{
-        const response = await api.post<AuthState>('/users/authenticated',{
+
+    const SignIn = useCallback(async ({ username, password }) => {
+        const response = await api.post<AuthState>('/users/authenticated', {
             username,
             password
         })
 
-        const { user, token } = response.data ;
+        const { user, token } = response.data;
 
         localStorage.setItem("@WRental:token", token);
         localStorage.setItem("@WRental:user", JSON.stringify(user));
@@ -57,21 +57,28 @@ function AuthProvider({ children }: any){
             user,
             token
         })
-    },[])
+    }, [])
 
-    return(
+    const SignOut = useCallback(() => {
+        localStorage.removeItem("@WRental:token")
+        localStorage.removeItem("@WRental:user")
+
+        setData({} as AuthState)
+    }, [])
+
+    return (
         <AuthContext.Provider
-            value={{ SignIn, user: data.user }}
+            value={{ SignIn, user: data.user, SignOut }}
         >
             {children}
         </AuthContext.Provider>
     )
 }
 
-function useAuth():AuthContextData{
+function useAuth(): AuthContextData {
     const context = useContext(AuthContext)
 
-    if(!context){
+    if (!context) {
         throw new Error('useAuth must be used whitin as AuthProvider')
     }
 

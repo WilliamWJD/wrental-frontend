@@ -2,7 +2,7 @@ import styled  from "styled-components";
 
 export const Container = styled.header`
     grid-area: h;
-    background-color:#fff;
+    background-color:#F5F9FD;
     border-bottom:  1px solid #F3F3F3;
 `;
 
