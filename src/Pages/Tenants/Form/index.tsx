@@ -3,6 +3,7 @@ import { Form } from "@unform/web";
 import { FormHandles } from '@unform/core';
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
+import {FaUser} from 'react-icons/fa';
 
 import Input from "../../../components/Input";
 import { Template } from "../../../components/Layoult";
@@ -45,7 +46,7 @@ export function TenantForm() {
                 abortEarly:false
             })
             
-            await api.post('/tenants', data);
+            await api.post('/tenants', data)
             
             toast.success("Inquilino salvo com sucesso")
 
@@ -63,7 +64,10 @@ export function TenantForm() {
     return (
         <Template>
             <Container>
-                <h1>Novo inquilino</h1>
+                <div>
+                    <FaUser color="#3F3D56" size={30}/>
+                    <h1>Novo inquilino</h1>
+                </div>
                 <Form ref={formRef} onSubmit={handleSave}>
                     <InputGroup>
                         <Input name="name" type="text" label="Nome completo" />
