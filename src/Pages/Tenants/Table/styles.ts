@@ -14,6 +14,7 @@ export const Container = styled.div`
 
     table{
         width:100%;
+        margin-top:50px;
         
 
         th{
@@ -58,5 +59,28 @@ export const ListHeader = styled.div`
                 filter: brightness(0.9);
             }
         }
+    }
+`;
+
+export const LoadingContainer = styled.div`
+    height:100%;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+`;
+
+export const SearchInput = styled.div`
+    width:100%;
+    display: flex;
+    align-items:center;
+    border:1px solid #ddd;
+    padding:10px 15px;
+    border-radius:10px;
+
+    input{
+        width:100%;
+        border:none;
+        margin-left:10px;
+        outline:none;
     }
 `;

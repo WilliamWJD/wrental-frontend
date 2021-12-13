@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
-import { format, parseISO } from 'date-fns';
+import { format } from 'date-fns';
+import { FaSearch } from 'react-icons/fa';
 
 import { Template } from "../../../components/Layoult"
 
 import { api } from '../../../services/api';
 
-import { Container, ListHeader } from './styles';
+import { Container, ListHeader, LoadingContainer, SearchInput } from './styles';
 
 interface Tenant {
     id: string;
@@ -46,7 +47,9 @@ export function TenantTable() {
         <div>
             <Template>
                 {loading ? (
-                    <h1>Carregando</h1>
+                    <LoadingContainer>
+                        <h1>Carregando</h1>
+                    </LoadingContainer>
                 ) : (
                     <Container>
                         <ListHeader>
@@ -59,6 +62,11 @@ export function TenantTable() {
                                 <button>Novo</button>
                             </Link>
                         </ListHeader>
+
+                        <SearchInput>
+                            <FaSearch  size={20} color="#ddd"/>
+                            <input type="text" placeholder="Pesquise pelo nome do inquilino"/>
+                        </SearchInput>
 
                         <table>
                             <thead>
