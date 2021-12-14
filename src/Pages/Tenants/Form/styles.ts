@@ -23,13 +23,28 @@ export const Container = styled.div`
     }
 
     form{
-        width:700px;
-        max-width:700px;
-        margin-top:50px;
+        width:100%;
+               
+    }
+`;
 
-        button{
-            width:100%;
-            height:47px;
+export const InputGroup = styled.div`
+    display:flex;
+`;
+
+export const HeaderForm = styled.div`
+    display: flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:50px; 
+
+    >div{
+        display: flex;
+        align-items:center;
+    }
+
+    button{
+            padding:10px 15px;
             background-color:#04D361;
             color:#fff;
             font-weight: 700;
@@ -42,9 +57,4 @@ export const Container = styled.div`
                 filter: brightness(0.9);
             }
         }
-    }
-`;
-
-export const InputGroup = styled.div`
-    display:flex;
 `;

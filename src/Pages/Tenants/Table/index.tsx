@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import { format } from 'date-fns';
-import { FaSearch } from 'react-icons/fa';
+import { FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
 
 import { Template } from "../../../components/Layoult"
 
@@ -98,8 +98,8 @@ export function TenantTable() {
                                             </div>
                                         </td>
                                         <td>
-                                            <button>Editar</button>
-                                            <button>Excluir</button>
+                                            <FaEdit size={20} color="#2980b9"/>
+                                            <FaTrash size={20} color="#e74c3c"/>
                                         </td>
                                     </tr>
                                 ))}

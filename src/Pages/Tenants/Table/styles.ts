@@ -28,6 +28,21 @@ export const Container = styled.div`
             color:#7f8c8d;
             border-bottom:1px solid #ddd;
 
+            svg{
+                cursor:pointer;
+                margin-right:3px;
+
+                :last-child{
+                    margin-right:0;
+                }
+
+                &:hover{
+                    filter: brightness(0.9);
+                }
+            }
+
+
+
             >div{
                 border: 1px solid #e74c3c;
                 padding:5px 2px;
@@ -47,7 +62,7 @@ export const ListHeader = styled.div`
     a{
         button{
             padding:10px 15px;
-            background-color:#27ae60;
+            background-color:#2980b9;
             color:#fff;
             font-weight: 700;
             border:none;
