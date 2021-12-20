@@ -12,7 +12,7 @@ import { api } from '../../../services/api';
 import { toast } from 'react-toastify';
 import getValidationErrors from '../../../utils/getValidationErrors';
 
-import { Container, InputGroup, HeaderForm } from './styles';
+import { Container, InputGroup, Content, HeaderContent } from './styles';
 
 interface FormData {
     name: string;
@@ -65,32 +65,31 @@ export function TenantForm() {
     return (
         <Template>
             <Container>
-                <Form ref={formRef} onSubmit={handleSave}>
-                    <HeaderForm>
-                        <div>
-                            <FaUser color="#3F3D56" size={30} />
-                            <h1>Novo inquilino</h1>
-                        </div>
-                        <button type="submit">Salvar</button>
-                    </HeaderForm>
+                <Content>
+                    <HeaderContent>
+                        <FaUser color="#3F3D56" size={25}/>
+                        <h1>Cadastrar novo inquilino</h1>
+                    </HeaderContent>
+                    <Form ref={formRef} onSubmit={handleSave}>
+                        <InputGroup>
+                            <Input name="name" type="text" label="Nome completo" />
+                            <Input name="birth" type="date" label="Data de nascimento" />
+                        </InputGroup>
+                            <Input name="profession" type="text" label="Profissão" />
+                        <InputGroup>
+                            <Input name="rg" type="text" label="RG" />
+                            <Input name="cpf" type="text" label="CPF" />
+                            <Input name="fone1" type="text" label="Fone 1" />
+                            <Input name="fone2" type="text" label="Fone 2" />
+                        </InputGroup>
+                        <InputGroup>
+                            <Input name="email" type="email" label="E-mail" />
+                            <Input name="marital_status" type="text" label="Estado civil" />
+                        </InputGroup>
 
-                    <InputGroup>
-                        <Input name="name" type="text" label="Nome completo" />
-                        <Input name="birth" type="date" label="Data de nascimento" />
-                        <Input name="profession" type="text" label="Profissão" />
-                    </InputGroup>
-                    <InputGroup>
-                        <Input name="rg" type="text" label="RG" />
-                        <Input name="cpf" type="text" label="CPF" />
-                        <Input name="fone1" type="text" label="Fone 1" />
-                        <Input name="fone2" type="text" label="Fone 2" />
-                    </InputGroup>
-                    <InputGroup>
-                        <Input name="email" type="email" label="E-mail" />
-                        <Input name="marital_status" type="text" label="Estado civil" />
-                    </InputGroup>
-
-                </Form>
+                        <button>Salvar</button>
+                    </Form>
+                </Content>
             </Container>
         </Template>
     )
