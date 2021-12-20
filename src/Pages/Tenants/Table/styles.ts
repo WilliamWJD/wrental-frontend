@@ -41,37 +41,11 @@ export const Container = styled.div`
                 }
             }
 
-
-
             >div{
                 border: 1px solid #e74c3c;
                 padding:5px 2px;
                 border-radius:10px;
                 color:#e74c3c;
-            }
-        }
-    }
-`;
-
-export const ListHeader = styled.div`
-    display: flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:50px;
-
-    a{
-        button{
-            padding:10px 15px;
-            background-color:#2980b9;
-            color:#fff;
-            font-weight: 700;
-            border:none;
-            border-radius: 8px;
-            margin-top:10px;
-            transition: filter 0.2s;
-            
-            &:hover{
-                filter: brightness(0.9);
             }
         }
     }

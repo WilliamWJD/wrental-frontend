@@ -4,10 +4,13 @@ import { format } from 'date-fns';
 import { FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
 
 import { Template } from "../../../components/Layoult"
+import { TableHeader } from '../../../components/TableHeader';
+import { Loading } from '../../../components/Loading';
+import { Table } from "../../../components/Table";
 
 import { api } from '../../../services/api';
 
-import { Container, ListHeader, LoadingContainer, SearchInput } from './styles';
+import { Container, SearchInput } from './styles';
 
 interface Tenant {
     id: string;
@@ -47,28 +50,21 @@ export function TenantTable() {
         <div>
             <Template>
                 {loading ? (
-                    <LoadingContainer>
-                        <h1>Carregando</h1>
-                    </LoadingContainer>
+                    <Loading />
                 ) : (
                     <Container>
-                        <ListHeader>
-                            <div>
-                                <h1>Inquilinos</h1>
-                                <span>{tenants?.length} inquilinos</span>
-                            </div>
-
-                            <Link to="/tenants/new">
-                                <button>Novo</button>
-                            </Link>
-                        </ListHeader>
+                        <TableHeader
+                            totalItem={tenants ? tenants.length : 0}
+                            totalItemName="Inquilinos"
+                            routePath="/tenants/new"
+                        />
 
                         <SearchInput>
-                            <FaSearch  size={20} color="#ddd"/>
-                            <input type="text" placeholder="Pesquise pelo nome do inquilino"/>
+                            <FaSearch size={20} color="#ddd" />
+                            <input type="text" placeholder="Pesquise pelo nome do inquilino" />
                         </SearchInput>
 
-                        <table>
+                        <Table>
                             <thead>
                                 <tr>
                                     <th>Nome</th>
@@ -92,19 +88,19 @@ export function TenantTable() {
                                         <td>{tenant.fone1}</td>
                                         <td>
                                             <div
-                                                style={tenant.status ? {borderColor:'#27ae60', color:'#27ae60'} : {}}
+                                                style={tenant.status ? { borderColor: '#27ae60', color: '#27ae60' } : {}}
                                             >
                                                 {tenant.status ? 'Ativo' : 'Inativo'}
                                             </div>
                                         </td>
                                         <td>
-                                            <FaEdit size={20} color="#2980b9"/>
-                                            <FaTrash size={20} color="#e74c3c"/>
+                                            <FaEdit size={20} color="#2980b9" />
+                                            <FaTrash size={20} color="#e74c3c" />
                                         </td>
                                     </tr>
                                 ))}
                             </tbody>
-                        </table>
+                        </Table>
                     </Container>
                 )}
             </Template>
