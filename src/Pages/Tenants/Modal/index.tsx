@@ -19,25 +19,28 @@ interface ReactModalProps{
     modalIsOpen:boolean;
     closeModal():void;
     titleModal:string;
+    handleDelete():void;
+    itemName:string;
 }
 
-export function ReactModal({ modalIsOpen, titleModal, closeModal }:ReactModalProps) {
+export function ReactModal({ modalIsOpen, titleModal, closeModal, handleDelete, itemName }:ReactModalProps) {
     return (
         <Modal
             isOpen={modalIsOpen}
             onRequestClose={closeModal}
             style={customStyles}
             contentLabel="Example Modal"
+            ariaHideApp={false}
         >
             <Content>
                 <HeaderModal>
                     <h1>Atenção !</h1>
                 </HeaderModal>
                 <ContentModal>
-                    <p>Tem certeza que deseja excluir o inquilino <strong>William José Dias</strong></p>
+                    <p>Tem certeza que deseja excluir o inquilino <strong>{itemName}</strong></p>
                 </ContentModal>
                 <OptionsModal>
-                    <button className="buttonYes">Sim</button>
+                    <button className="buttonYes" onClick={handleDelete}>Sim</button>
                     <button className="buttonNo" onClick={closeModal}>Não</button>
                 </OptionsModal>
             </Content>

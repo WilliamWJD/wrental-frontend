@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import { format } from 'date-fns';
 import { FaSearch, FaEdit, FaTrash } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 import { Template } from "../../../components/Layoult"
 import { TableHeader } from '../../../components/TableHeader';
@@ -29,6 +30,7 @@ export function TenantTable() {
     const [tenants, setTenants] = useState<Tenant[]>();
     const [loading, setLoading] = useState(true);
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [tenantSelected, setTenantSelected] = useState<Tenant>({} as Tenant)
 
     useEffect(() => {
         async function loadTenants() {
@@ -48,7 +50,25 @@ export function TenantTable() {
         loadTenants();
     }, [])
 
-    function openModal(){
+    async function handleDelete(){
+        try{
+            await api.delete(`/tenants/${tenantSelected.id}`);
+            
+            let updateTenants = tenants?.filter((tenant)=>tenant.id !== tenantSelected.id);
+
+            setTenants(updateTenants);
+
+            toast.success('inquilino excluído com sucesso')
+            setTenantSelected({} as Tenant);
+            closeModal();
+        }catch(err){    
+            toast.error('Erro ao excluir inquilino')
+            console.log(err)
+        }
+    }
+
+    function openModal(tenant:Tenant){
+        setTenantSelected(tenant);
         setIsOpen(true);
     }
 
@@ -62,6 +82,8 @@ export function TenantTable() {
                 modalIsOpen={modalIsOpen}
                 closeModal={closeModal}
                 titleModal="Tem certeza disso ?"
+                handleDelete={handleDelete}
+                itemName={tenantSelected.name}
             />
             <Template>
                 {loading ? (
@@ -110,7 +132,7 @@ export function TenantTable() {
                                         </td>
                                         <td>
                                             <FaEdit size={20} color="#2980b9" />
-                                            <FaTrash size={20} color="#e74c3c" onClick={openModal}/>
+                                            <FaTrash size={20} color="#e74c3c" onClick={()=>openModal(tenant)}/>
                                         </td>
                                     </tr>
                                 ))}
