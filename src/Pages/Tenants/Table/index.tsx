@@ -12,7 +12,7 @@ import { Table } from "../../../components/Table";
 import { api } from '../../../services/api';
 
 import { Container, SearchInput } from './styles';
-import { ReactModal } from '../Modal';
+import { DeleteDialog } from '../DeleteDialog';
 
 interface Tenant {
     id: string;
@@ -78,10 +78,9 @@ export function TenantTable() {
 
     return (
         <div>
-            <ReactModal
+            <DeleteDialog
                 modalIsOpen={modalIsOpen}
                 closeModal={closeModal}
-                titleModal="Tem certeza disso ?"
                 handleDelete={handleDelete}
                 itemName={tenantSelected.name}
             />

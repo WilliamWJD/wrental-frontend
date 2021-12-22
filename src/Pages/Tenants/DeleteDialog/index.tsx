@@ -1,36 +1,19 @@
-import Modal from 'react-modal';
 import { Content, HeaderModal, ContentModal, OptionsModal } from './styles';
 
-const customStyles = {
-    overlay:{
-        backgroundColor:'rgba(0,0,0,0.4'
-    },
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-    },
-};
+import { ReactModal } from '../../../components/Modal';
 
-interface ReactModalProps{
+interface DeleteDialogProps{
     modalIsOpen:boolean;
     closeModal():void;
-    titleModal:string;
     handleDelete():void;
     itemName:string;
 }
 
-export function ReactModal({ modalIsOpen, titleModal, closeModal, handleDelete, itemName }:ReactModalProps) {
+export function DeleteDialog({modalIsOpen, closeModal, handleDelete, itemName}:DeleteDialogProps) {
     return (
-        <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-            style={customStyles}
-            contentLabel="Example Modal"
-            ariaHideApp={false}
+        <ReactModal
+            modalIsOpen={modalIsOpen}
+            closeModal={closeModal}
         >
             <Content>
                 <HeaderModal>
@@ -44,6 +27,6 @@ export function ReactModal({ modalIsOpen, titleModal, closeModal, handleDelete, 
                     <button className="buttonNo" onClick={closeModal}>Não</button>
                 </OptionsModal>
             </Content>
-        </Modal>
+        </ReactModal>
     )
 }
