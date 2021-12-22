@@ -11,6 +11,7 @@ import { Table } from "../../../components/Table";
 import { api } from '../../../services/api';
 
 import { Container, SearchInput } from './styles';
+import { ReactModal } from '../Modal';
 
 interface Tenant {
     id: string;
@@ -27,6 +28,7 @@ interface Tenant {
 export function TenantTable() {
     const [tenants, setTenants] = useState<Tenant[]>();
     const [loading, setLoading] = useState(true);
+    const [modalIsOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         async function loadTenants() {
@@ -46,8 +48,21 @@ export function TenantTable() {
         loadTenants();
     }, [])
 
+    function openModal(){
+        setIsOpen(true);
+    }
+
+    function closeModal(){
+        setIsOpen(false);
+    }
+
     return (
         <div>
+            <ReactModal
+                modalIsOpen={modalIsOpen}
+                closeModal={closeModal}
+                titleModal="Tem certeza disso ?"
+            />
             <Template>
                 {loading ? (
                     <Loading />
@@ -95,7 +110,7 @@ export function TenantTable() {
                                         </td>
                                         <td>
                                             <FaEdit size={20} color="#2980b9" />
-                                            <FaTrash size={20} color="#e74c3c" />
+                                            <FaTrash size={20} color="#e74c3c" onClick={openModal}/>
                                         </td>
                                     </tr>
                                 ))}
