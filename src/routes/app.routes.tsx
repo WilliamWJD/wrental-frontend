@@ -12,10 +12,14 @@ export function AppRoutes() {
     return (
         <Switch>
             <Route exact path="/" component={SignIn} />
+            
             <Route path="/signup" component={SignUp} />
             <Route path="/Dashboard" component={Dashboard} isPrivate />
+            
             <Route exact path="/tenants" component={TenantTable} isPrivate />
             <Route path="/tenants/new" component={TenantForm} isPrivate />
+            <Route path="/tenants/edit/:id" component={TenantForm} isPrivate />
+
             <Route path="/profile" component={Profile} isPrivate />
         </Switch>
     )

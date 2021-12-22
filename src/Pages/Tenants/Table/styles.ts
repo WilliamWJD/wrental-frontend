@@ -28,9 +28,12 @@ export const Container = styled.div`
             color:#7f8c8d;
             border-bottom:1px solid #ddd;
 
+            >a{
+                margin-right:3px;
+            }
+
             svg{
                 cursor:pointer;
-                margin-right:3px;
 
                 :last-child{
                     margin-right:0;

@@ -130,7 +130,9 @@ export function TenantTable() {
                                             </div>
                                         </td>
                                         <td>
-                                            <FaEdit size={20} color="#2980b9" />
+                                            <Link to={`/tenants/edit/${tenant.id}`}>
+                                                <FaEdit size={20} color="#2980b9" />
+                                            </Link>
                                             <FaTrash size={20} color="#e74c3c" onClick={()=>openModal(tenant)}/>
                                         </td>
                                     </tr>
