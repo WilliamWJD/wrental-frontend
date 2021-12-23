@@ -74,12 +74,10 @@ export function TenantForm() {
             })
 
             if (tenant.id) {
-                console.log('edita')
+                await api.put(`/tenants/${tenant.id}`, data);
                 toast.success("Dados alterados com sucesso")
-                return;
             } else {
-                console.log(data)
-                // await api.post('/tenants', data)
+                await api.post('/tenants', data)
                 toast.success("Inquilino salvo com sucesso")
             }
 

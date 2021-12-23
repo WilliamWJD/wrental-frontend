@@ -27,10 +27,11 @@ interface Tenant {
 }
 
 export function TenantTable() {
-    const [tenants, setTenants] = useState<Tenant[]>();
+    const [tenants, setTenants] = useState<Tenant[]>([]);
     const [loading, setLoading] = useState(true);
     const [modalIsOpen, setIsOpen] = useState(false);
     const [tenantSelected, setTenantSelected] = useState<Tenant>({} as Tenant)
+    const [searchInput, setSearchInput] = useState('');
 
     useEffect(() => {
         async function loadTenants() {
@@ -42,13 +43,20 @@ export function TenantTable() {
                     dateFormmat: format(new Date(item.birth), "dd/MM/yyyy")
                 }
             })
-
             setTenants(dateFormmat)
             setLoading(false);
         }
 
         loadTenants();
     }, [])
+
+    useEffect(()=>{
+        if(tenants){
+            console.log(searchInput)
+            let tenantsSearchFilter = tenants.filter((tenant:Tenant)=>tenant.name === SearchInput);
+            console.log(tenantsSearchFilter)
+        }
+    },[searchInput])
 
     async function handleDelete(){
         try{
@@ -97,7 +105,12 @@ export function TenantTable() {
 
                         <SearchInput>
                             <FaSearch size={20} color="#ddd" />
-                            <input type="text" placeholder="Pesquise pelo nome do inquilino" />
+                            <input 
+                                type="text" 
+                                placeholder="Pesquise pelo nome do inquilino"
+                                onChange={(e)=>setSearchInput(e.target.value)}
+                                value={searchInput}
+                            />
                         </SearchInput>
 
                         <Table>
@@ -114,7 +127,7 @@ export function TenantTable() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {tenants?.map(tenant => (
+                                {tenants.map(tenant => (
                                     <tr className="teste" key={tenant.id}>
                                         <td>{tenant.name}</td>
                                         <td>{tenant.dateFormmat}</td>

@@ -20,7 +20,8 @@ export function DeleteDialog({modalIsOpen, closeModal, handleDelete, itemName}:D
                     <h1>Atenção !</h1>
                 </HeaderModal>
                 <ContentModal>
-                    <p>Tem certeza que deseja excluir o inquilino <strong>{itemName}</strong></p>
+                    <p>Tem certeza que deseja excluir o inquilino <strong>{itemName}</strong> ?</p>
+                    <p>Todos os registros de locações e recibos de aluguéis serão perdidos.</p>
                 </ContentModal>
                 <OptionsModal>
                     <button className="buttonYes" onClick={handleDelete}>Sim</button>
