@@ -12,31 +12,33 @@ export function Template({ children }: any) {
             <nav>
                 <ul>
                     <li>
-                        <FaTachometerAlt color="#2F2E41" size={25}/>
+                        <FaTachometerAlt color="#2F2E41" size={25} />
                         Dashboard
                     </li>
                     <Link to="/tenants">
-                    <li>
-                        <FaUsers color="#2F2E41" size={25}/>
-                        Inquilinos
-                    </li>
+                        <li>
+                            <FaUsers color="#2F2E41" size={25} />
+                            Inquilinos
+                        </li>
+                    </Link>
+                    <Link to="/houses">
+                        <li>
+                            <FaHome color="#2F2E41" size={25} />
+                            Imoveis
+                        </li>
                     </Link>
                     <li>
-                        <FaHome color="#2F2E41" size={25}/>
-                        Imoveis
-                    </li>
-                    <li>
-                        <FaFileContract color="#2F2E41" size={25}/>
+                        <FaFileContract color="#2F2E41" size={25} />
                         Locação
                     </li>
                     <li>
-                        <FaReceipt color="#2F2E41" size={25}/>
+                        <FaReceipt color="#2F2E41" size={25} />
                         Recibos
                     </li>
                 </ul>
             </nav>
             <main>
-               {children}
+                {children}
             </main>
         </Container>
     )

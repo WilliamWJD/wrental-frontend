@@ -13,7 +13,7 @@ export function TableHeader({ totalItem, totalItemName, routePath }:TableHeaderP
         <Container>
             <div>
                 <h1>{totalItemName}</h1>
-                <span>{totalItem} {totalItemName}</span>
+                <span>{totalItem} {totalItemName} cadastrados</span>
             </div>
 
             <Link to={routePath}>

@@ -50,13 +50,13 @@ export function TenantTable() {
         loadTenants();
     }, [])
 
-    useEffect(()=>{
-        if(tenants){
-            console.log(searchInput)
-            let tenantsSearchFilter = tenants.filter((tenant:Tenant)=>tenant.name === SearchInput);
-            console.log(tenantsSearchFilter)
-        }
-    },[searchInput])
+    // useEffect(()=>{
+    //     if(tenants){
+    //         console.log(searchInput)
+    //         let tenantsSearchFilter = tenants.filter((tenant:Tenant)=>tenant.name === SearchInput);
+    //         console.log(tenantsSearchFilter)
+    //     }
+    // },[searchInput])
 
     async function handleDelete(){
         try{
