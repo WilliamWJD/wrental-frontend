@@ -11,6 +11,7 @@ import { Table } from '../../../components/Table';
 import { api } from '../../../services/api';
 import { Loading } from '../../../components/Loading';
 import { DeleteDialog } from '../DeleteDialog';
+import { DataNotFound } from '../../../components/DataNotFound';
 
 interface House {
     id: string;
@@ -49,7 +50,7 @@ export function HouseTable() {
         setIsOpen(false)
     }, [])
 
-    const handleDelete = useCallback(async() => {
+    const handleDelete = useCallback(async () => {
         try {
             console.log(houseSelected.id)
             await api.delete(`/houses/${houseSelected.id}`);
@@ -87,42 +88,48 @@ export function HouseTable() {
                             routePath="/houses/new"
                         />
 
-                        <Table>
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Descrição</th>
-                                    <th>Valor R$</th>
-                                    <th>Estado</th>
-                                    <th>Endereço</th>
-                                    <th>Bairro</th>
-                                    <th>Cidade</th>
-                                    <th>Nº</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {houses.map(house => (
-                                    <tr key={house.id}>
-                                        <td>{house.name}</td>
-                                        <td>{house.description}</td>
-                                        <td>{house.value}</td>
-                                        <td>{house.state}</td>
-                                        <td>{house.address}</td>
-                                        <td>{house.district}</td>
-                                        <td>{house.city}</td>
-                                        <td>{house.num}</td>
-                                        <td>
-                                            <Link to={`/houses/edit/${house.id}`}>
-                                                <FaEdit size={20} color="#2980b9" />
-                                            </Link>
-                                            <FaTrash size={20} color="#e74c3c" onClick={()=>openModal(house)} />
-                                        </td>
+                        {houses.length === 0 ? (
+                            <DataNotFound
+                                itemName='imóveis'
+                            />
+                        ) : (
+                            <Table>
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Descrição</th>
+                                        <th>Valor R$</th>
+                                        <th>Estado</th>
+                                        <th>Endereço</th>
+                                        <th>Bairro</th>
+                                        <th>Cidade</th>
+                                        <th>Nº</th>
+                                        <th>Ações</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </Table>
+                                </thead>
+
+                                <tbody>
+                                    {houses.map(house => (
+                                        <tr key={house.id}>
+                                            <td>{house.name}</td>
+                                            <td>{house.description}</td>
+                                            <td>{house.value}</td>
+                                            <td>{house.state}</td>
+                                            <td>{house.address}</td>
+                                            <td>{house.district}</td>
+                                            <td>{house.city}</td>
+                                            <td>{house.num}</td>
+                                            <td>
+                                                <Link to={`/houses/edit/${house.id}`}>
+                                                    <FaEdit size={20} color="#2980b9" />
+                                                </Link>
+                                                <FaTrash size={20} color="#e74c3c" onClick={() => openModal(house)} />
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>
+                        )}
                     </Container>
                 )}
             </Template>

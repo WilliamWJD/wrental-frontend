@@ -13,6 +13,7 @@ import { api } from '../../../services/api';
 
 import { Container, SearchInput } from './styles';
 import { DeleteDialog } from '../DeleteDialog';
+import { DataNotFound } from "../../../components/DataNotFound";
 
 interface Tenant {
     id: string;
@@ -58,29 +59,29 @@ export function TenantTable() {
     //     }
     // },[searchInput])
 
-    async function handleDelete(){
-        try{
+    async function handleDelete() {
+        try {
             await api.delete(`/tenants/${tenantSelected.id}`);
-            
-            let updateTenants = tenants?.filter((tenant)=>tenant.id !== tenantSelected.id);
+
+            let updateTenants = tenants?.filter((tenant) => tenant.id !== tenantSelected.id);
 
             setTenants(updateTenants);
 
             toast.success('inquilino excluído com sucesso')
             setTenantSelected({} as Tenant);
             closeModal();
-        }catch(err){    
+        } catch (err) {
             toast.error('Erro ao excluir inquilino')
             console.log(err)
         }
     }
 
-    function openModal(tenant:Tenant){
+    function openModal(tenant: Tenant) {
         setTenantSelected(tenant);
         setIsOpen(true);
     }
 
-    function closeModal(){
+    function closeModal() {
         setIsOpen(false);
     }
 
@@ -105,53 +106,59 @@ export function TenantTable() {
 
                         <SearchInput>
                             <FaSearch size={20} color="#ddd" />
-                            <input 
-                                type="text" 
+                            <input
+                                type="text"
                                 placeholder="Pesquise pelo nome do inquilino"
-                                onChange={(e)=>setSearchInput(e.target.value)}
+                                onChange={(e) => setSearchInput(e.target.value)}
                                 value={searchInput}
                             />
                         </SearchInput>
 
-                        <Table>
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Data de nascimento</th>
-                                    <th>RG</th>
-                                    <th>CPF</th>
-                                    <th>Profissão</th>
-                                    <th>Fone 1</th>
-                                    <th>Status</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {tenants.map(tenant => (
-                                    <tr className="teste" key={tenant.id}>
-                                        <td>{tenant.name}</td>
-                                        <td>{tenant.dateFormmat}</td>
-                                        <td>{tenant.rg}</td>
-                                        <td>{tenant.cpf}</td>
-                                        <td>{tenant.profession}</td>
-                                        <td>{tenant.fone1}</td>
-                                        <td>
-                                            <div
-                                                style={tenant.status ? { borderColor: '#27ae60', color: '#27ae60' } : {}}
-                                            >
-                                                {tenant.status ? 'Ativo' : 'Inativo'}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <Link to={`/tenants/edit/${tenant.id}`}>
-                                                <FaEdit size={20} color="#2980b9" />
-                                            </Link>
-                                            <FaTrash size={20} color="#e74c3c" onClick={()=>openModal(tenant)}/>
-                                        </td>
+                        {tenants.length === 0 ? (
+                            <DataNotFound
+                                itemName='inquilinos'
+                            />
+                        ) : (
+                            <Table>
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Data de nascimento</th>
+                                        <th>RG</th>
+                                        <th>CPF</th>
+                                        <th>Profissão</th>
+                                        <th>Fone 1</th>
+                                        <th>Status</th>
+                                        <th>Ações</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </Table>
+                                </thead>
+                                <tbody>
+                                    {tenants.map(tenant => (
+                                        <tr className="teste" key={tenant.id}>
+                                            <td>{tenant.name}</td>
+                                            <td>{tenant.dateFormmat}</td>
+                                            <td>{tenant.rg}</td>
+                                            <td>{tenant.cpf}</td>
+                                            <td>{tenant.profession}</td>
+                                            <td>{tenant.fone1}</td>
+                                            <td>
+                                                <div
+                                                    style={tenant.status ? { borderColor: '#27ae60', color: '#27ae60' } : {}}
+                                                >
+                                                    {tenant.status ? 'Ativo' : 'Inativo'}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <Link to={`/tenants/edit/${tenant.id}`}>
+                                                    <FaEdit size={20} color="#2980b9" />
+                                                </Link>
+                                                <FaTrash size={20} color="#e74c3c" onClick={() => openModal(tenant)} />
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>
+                        )}
                     </Container>
                 )}
             </Template>
