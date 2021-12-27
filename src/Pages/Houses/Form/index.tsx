@@ -102,7 +102,7 @@ export function HouseForm() {
                             <h1>Cadastrar novo imóvel</h1>
                         </HeaderContent>
                         <Form ref={formRef} onSubmit={handleSave} initialData={house}>
-                            <Input name="name" type="text" label="Nome completo" />
+                            <Input name="name" type="text" label="Nome" />
                             <Input name="description" type="text" label="Descrição do imóvel" />
                             <Input name="value" type="number" label="Valor R$" />
                             <InputGroup>
