@@ -1,40 +1,64 @@
-import { Header } from "../../components/Header";
-
+import { useCallback, useState } from "react";
+import { IconType } from "react-icons";
 import { FaTachometerAlt, FaUsers, FaHome, FaFileContract, FaReceipt } from 'react-icons/fa';
 
+import { Header } from "../../components/Header";
+
 import { Container } from './styles';
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+
+interface NavProps {
+    title: string;
+    path: string;
+    icon: IconType;
+}
 
 export function Template({ children }: any) {
+    const [navItems, setNavItems] = useState<NavProps[]>(() => [
+        {
+            title: "Dashboard",
+            path: "/dashboard",
+            icon: FaTachometerAlt
+        },
+        {
+            title: "Inquilinos",
+            path: "/tenants",
+            icon: FaUsers
+        },
+        {
+            title: "Imóveis",
+            path: "/houses",
+            icon: FaHome,
+        },
+        {
+            title: "Locação",
+            path: "/locations",
+            icon: FaFileContract,
+        },
+        {
+            title: "Recibos",
+            path: "/receipts",
+            icon: FaReceipt,
+        },
+    ])
+
     return (
         <Container>
             <Header />
             <nav>
                 <ul>
-                    <li>
-                        <FaTachometerAlt color="#2F2E41" size={25} />
-                        Dashboard
-                    </li>
-                    <Link to="/tenants">
-                        <li>
-                            <FaUsers color="#2F2E41" size={25} />
-                            Inquilinos
-                        </li>
-                    </Link>
-                    <Link to="/houses">
-                        <li>
-                            <FaHome color="#2F2E41" size={25} />
-                            Imoveis
-                        </li>
-                    </Link>
-                    <li>
-                        <FaFileContract color="#2F2E41" size={25} />
-                        Locação
-                    </li>
-                    <li>
-                        <FaReceipt color="#2F2E41" size={25} />
-                        Recibos
-                    </li>
+                    {navItems.map(navItem => (
+                        <NavLink
+                            to={navItem.path}
+                            key={navItem.path}
+                            activeClassName="selected"
+                        >
+                     
+                                {<navItem.icon size={30} color="#3F3D56" />}
+                                {navItem.title}
+                        
+                        </NavLink>
+                    ))}
                 </ul>
             </nav>
             <main>

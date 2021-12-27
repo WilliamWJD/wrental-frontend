@@ -19,7 +19,7 @@ export const Container = styled.div`
         ul{
             margin-top:40px;
 
-            li{
+            a{
                 margin-bottom: 30px;
                 color:#2F2E41;
                 font-size:18px;
@@ -40,5 +40,16 @@ export const Container = styled.div`
     main{
         grid-area: m;
         background:#fff;
+    }
+
+    .selected{
+        background-color: #6C63FF;
+        color: #fff;
+
+        svg{
+            path{
+                fill: #fff;
+            }
+        }
     }
 `;
