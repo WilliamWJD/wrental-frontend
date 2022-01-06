@@ -9,6 +9,7 @@ import { SignIn } from '../Pages/SignIn';
 import { SignUp } from '../Pages/SignUp';
 import { HouseTable } from '../Pages/Houses/Table/Index';
 import { HouseForm } from '../Pages/Houses/Form';
+import { LocationTable } from '../Pages/Locations/Table';
 
 export function AppRoutes() {
     return (
@@ -27,6 +28,8 @@ export function AppRoutes() {
             <Route path="/houses/edit/:id" component={HouseForm} isPrivate />
 
             <Route path="/profile" component={Profile} isPrivate />
+
+            <Route path="/locations" component={LocationTable} isPrivate />
         </Switch>
     )
 }
