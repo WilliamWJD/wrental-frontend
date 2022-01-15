@@ -14,14 +14,24 @@ import { DeleteDialog } from '../DeleteDialog';
 import { DataNotFound } from '../../../components/DataNotFound';
 import { format } from 'date-fns';
 
+interface House{
+    id:string;
+    name:string;
+}
+
+interface Tenant{
+    id:string;
+    name:string;
+}
+
 interface Location{
     id:string;
     date_start:Date;
     dateStartFormmat:string;
     dateEndFormmat:string;
     date_end:Date;
-    house_id:string;
-    tenant_id:string;
+    house:House;
+    tenant:Tenant;
     contract_time:string;
     created_at: Date;
     createdAtFormmat:string
@@ -42,7 +52,9 @@ export function LocationTable() {
                     ...item,
                     dateStartFormmat: format(new Date(item.date_start), "dd/MM/yyyy"),
                     dateEndFormmat: format(new Date(item.date_end), "dd/MM/yyyy"),
-                    createdAtFormmat: format(new Date(item.created_at), "dd/MM/yyyy - HH:mm")
+                    createdAtFormmat: format(new Date(item.created_at), "dd/MM/yyyy - HH:mm"),
+                    house: item.house.name,
+                    tenant: item.tenant.name
                 }
             })
 
@@ -122,8 +134,8 @@ export function LocationTable() {
                                         <tr key={location.id}>
                                             <td>{location.dateStartFormmat}</td>
                                             <td>{location.dateEndFormmat}</td>
-                                            <td>{location.house_id}</td>
-                                            <td>{location.tenant_id}</td>
+                                            <td>{location.house}</td>
+                                            <td>{location.tenant}</td>
                                             <td>{location.contract_time} Meses</td>
                                             <td>{location.createdAtFormmat}</td>
                                             <td>
