@@ -15,6 +15,7 @@ import { toast } from 'react-toastify';
 import getValidationErrors from '../../../utils/getValidationErrors';
 
 import { Container, InputGroup, Content, HeaderContent } from './styles';
+import { Select } from '../../../components/Select';
 
 interface FormData {
     id?: string;
@@ -49,7 +50,7 @@ export function TenantForm() {
     async function loadTenant() {
         try {
             let response = await api.get(`/tenants/${id}`);
-            setTenant({...response.data, birth:format(new Date(response.data['birth']), "yyyy-MM-dd")})
+            setTenant({ ...response.data, birth: format(new Date(response.data['birth']), "yyyy-MM-dd") })
             console.log(tenant)
         } catch (err: any) {
             console.log(err.message)
@@ -92,6 +93,13 @@ export function TenantForm() {
         }
     }
 
+    const options = [
+        { value: 'solteiro (a)', label: 'SOLTEIRO (A)' },
+        { value: 'casado (a)', label: 'CASADO (A)' },
+        { value: 'divorciado (a)', label: 'DIVORCIADO (A)' },
+        { VALUE: 'viuvo (a)', label: 'VIUVO (A)' }
+    ]
+
     return (
         <Template>
             {id && !tenant ? (
@@ -119,6 +127,13 @@ export function TenantForm() {
                                 <Input name="email" type="email" label="E-mail" />
                                 <Input name="marital_status" type="text" label="Estado civil" />
                             </InputGroup>
+                            <Select
+                                name="kkk"
+                            >
+                                <option value="valor1">Valor 1</option>
+                                <option value="valor2" selected>Valor 2</option>
+                                <option value="valor3">Valor 3</option>
+                            </Select>
 
                             <button>Salvar</button>
                         </Form>
