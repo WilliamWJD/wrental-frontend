@@ -1,43 +1,38 @@
-import { useRef } from 'react';
-import { FormHandles } from '@unform/core';
-import { Form } from '@unform/web';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import backgroundLogin from '../../images/background-login.png';
-import Input from '../../components/Input';
-import getValidationErrors from '../../utils/getValidationErrors';
 import { useAuth } from '../../hooks/AuthContext';
 
 import { Container, Content } from './styles';
-import { toast } from 'react-toastify';
+import { Input } from '../../components/InputForm';
 
 interface FormData {
     username: string;
     password: string;
 }
 
+const SignInSchema = Yup.object().shape({
+    username: Yup.string().required('Login obrigatório'),
+    password: Yup.string().min(6, 'Mínimo de 6 digitos')
+})
+
 export function SignIn() {
-    const formRef = useRef<FormHandles>(null);
     const { SignIn } = useAuth();
 
-    async function handleSubmit(data: FormData) {
+    const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+        resolver: yupResolver(SignInSchema)
+    });
+
+    const handleLogin: SubmitHandler<FormData> = async (data, event) => {
         try {
-            const schema = Yup.object().shape({
-                username: Yup.string().required('Login obrigatório'),
-                password: Yup.string().min(6, 'Mínimo de 6 digitos')
-            })
-
-            await schema.validate(data, {
-                abortEarly: false
-            });
-
+            event?.preventDefault()
             await SignIn(data);
+            console.log(data)
         } catch (err) {
-            if (err instanceof Yup.ValidationError) {
-                const errors = getValidationErrors(err as Yup.ValidationError);
-                formRef.current?.setErrors(errors)
-            }
             toast.error("Usuário ou senha inválido")
         }
     }
@@ -47,22 +42,22 @@ export function SignIn() {
             <Content>
                 <img src={backgroundLogin} alt="W-Rental" />
                 <div>
-                    <Form ref={formRef} onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit(handleLogin)}>
                         <h1>Entre com suas Credenciais</h1>
+                        <Input
+                            placeholder='Login'
+                            error={errors.username}
+                            {...register('username')}
+                        />
 
                         <Input
-                            type="text"
-                            placeholder="Login"
-                            name="username"
-                        />
-                        <Input
+                            placeholder='Senha'
                             type="password"
-                            placeholder="Senha"
-                            name="password"
+                            error={errors.password}
+                            {...register('password')}
                         />
-
                         <button type="submit">Acessar plataforma</button>
-                    </Form>
+                    </form>
                     <Link to="/signup">Inscrever-se</Link>
                 </div>
             </Content>
